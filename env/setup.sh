@@ -1,28 +1,32 @@
 #!/bin/bash
 
-sudo add-apt-repository -y ppa:apt-fast/stable
-sudo add-apt-repository -y ppa:ultradvorka/ppa
-sudo add-apt-repository -y ppa:saiarcot895/myppa
-sudo add-apt-repository -y ppa:certbot/certbot
-sudo apt -y install apt-fast
+apt update 
+apt install software-properties-common dialog
 
-sudo cp completions/bash/apt-fast /etc/bash_completion.d/
-sudo chown root:root /etc/bash_completion.d/apt-fast
-sudo . /etc/bash_completion
+add-apt-repository -y ppa:apt-fast/stable
+add-apt-repository -y ppa:ultradvorka/ppa
+add-apt-repository -y ppa:saiarcot895/myppa
+add-apt-repository -y ppa:certbot/certbot
+
+apt install apt-fast
+
+#cp completions/bash/apt-fast /etc/bash_completion.d/
+#chown root:root /etc/bash_completion.d/apt-fast
+#source /etc/bash_completion
 
 #### bash history  ####
-sudo apt-fast update | sudo apt-fast install hstr
+apt-fast update | apt-fast install hstr
 hstr --show-configuration >> ~/.bashrc && . ~/.bashrc
 
 
 ### is.sh  ####
 # https://github.com/qzb/is.sh
 
-sudo sh -c 'cd /usr/local/bin && wget raw.githubusercontent.com/qzb/is.sh/latest/is.sh -O is && chmod +x is'
+#sudo sh -c 'cd /usr/local/bin && wget raw.githubusercontent.com/qzb/is.sh/latest/is.sh -O is && chmod +x is'
 
 
 # Allow apt to install system updates automatically every day.
-sudo cat > /etc/apt/apt.conf.d/02periodic <<EOF;
+cat > /etc/apt/apt.conf.d/02periodic <<EOF;
 APT::Periodic::MaxAge "7";
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
@@ -41,5 +45,7 @@ fi
 #source setup/packages-install.sh
 #source setup/build-webmail.sh
 
-#curl https://raw.githubusercontent.com/carlstrand/mailinabox/master/setup/bootstrap.sh | sudo bash
+#curl https://raw.githubusercontent.com/carlstrand/mailinabox/master/setup/packages-install.sh | sudo bash
 #curl https://raw.githubusercontent.com/carlstrand/shellstuff/master/env/setup.sh | sudo bash
+
+
